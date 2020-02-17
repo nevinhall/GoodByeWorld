@@ -25,16 +25,21 @@ class GoodbyeworldServiceImpl(
                              )(implicit ec: ExecutionContext)
   extends PersonService {
 
-var currentPeople: List[Person] = List()
+  var currentPeople: List[Person] = List()
 
   override def createPerson: ServiceCall[Person, String] = { p =>
     addToList(p)
     Future(p.name)
   }
 
-  def addToList(p:Person): Unit= {
+  def addToList(p: Person): Unit = {
     currentPeople = currentPeople :+ p
   }
 
-  override def getPerson: ServiceCall[String, Person] = ???
+  override def getPerson(fname: String): ServiceCall[NotUsed, Person] = { _ =>
+    Future {
+      val foundPerson: Option[Person] = currentPeople.find(p => p.name == fname)
+      foundPerson.get
+    }
+  }
 }

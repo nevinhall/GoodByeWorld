@@ -27,7 +27,7 @@ object Address {
 trait PersonService extends Service {
 
 
-  def getPerson: ServiceCall[String, Person]
+  def getPerson(fname: String): ServiceCall[NotUsed, Person]
 
   def createPerson: ServiceCall[Person, String]
 
@@ -37,7 +37,8 @@ trait PersonService extends Service {
     // @formatter:off
     named("goodbyeworld")
       .withCalls(
-        restCall(Method.POST, "/api/Nevin/", createPerson _)
+        restCall(Method.POST, "/api/Nevin/", createPerson _),
+        restCall(Method.GET,"/api/Nevin/:fname", getPerson _)
       )
       .withAutoAcl(true)
     // @formatter:on

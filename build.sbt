@@ -32,3 +32,4 @@ lazy val `goodbyeworld-impl` = (project in file("goodbyeworld-impl"))
   .dependsOn(`goodbyeworld-api`)
 
 
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.1.0" % "test"

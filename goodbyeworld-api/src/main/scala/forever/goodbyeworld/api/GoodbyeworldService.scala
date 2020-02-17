@@ -34,6 +34,8 @@ trait PersonService extends Service {
 
   def updatePersonName(currentName: String): ServiceCall[String, Person]
 
+  def deletePerson: ServiceCall[String, String]
+
 
   override final def descriptor: Descriptor = {
     import Service._
@@ -42,7 +44,9 @@ trait PersonService extends Service {
       .withCalls(
         restCall(Method.POST, "/api/Nevin/", createPerson _),
         restCall(Method.GET,"/api/Nevin/:fname", getPerson _),
-        restCall(Method.PUT,"/api/Nevin/:fname", updatePersonName _)
+        restCall(Method.PUT,"/api/Nevin/:fname", updatePersonName _),
+        restCall(Method.DELETE, "/api/Nevin/", deletePerson _)
+
       )
       .withAutoAcl(true)
     // @formatter:on

@@ -53,4 +53,9 @@ class GoodbyeworldServiceImpl(
       }
   }
 
+  override def deletePerson: ServiceCall[String, String] = {
+    nameToDelete =>
+      (currentPeople = currentPeople.filter(p => p.name != nameToDelete))
+      Future("Person has been deleted")
+  }
 }

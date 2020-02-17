@@ -42,4 +42,17 @@ class GoodbyeworldServiceImpl(
       foundPerson.get
     }
   }
+
+  override def updatePersonName(currentName: String): ServiceCall[String, Person] = {
+    name =>
+      val tempPerson: Option[Person] = currentPeople.find(p => p.name == currentName)
+      val updatedPerson = Person(name, tempPerson.get.age, tempPerson.get.address)
+      addToList(updatedPerson)
+      Future {
+        currentPeople = currentPeople.drop(currentPeople.indexOf(currentPeople.filter(p => p.name == currentName)))
+        updatedPerson
+      }
+
+  }
+
 }

@@ -1,6 +1,7 @@
 package forever.goodbyeworld.api
 
 import akka.{Done, NotUsed}
+import com.lightbend.lagom.scaladsl.api.Service.restCall
 import com.lightbend.lagom.scaladsl.api.broker.Topic
 import com.lightbend.lagom.scaladsl.api.broker.kafka.{KafkaProperties, PartitionKeyStrategy}
 import com.lightbend.lagom.scaladsl.api.transport.Method
@@ -31,6 +32,8 @@ trait PersonService extends Service {
 
   def createPerson: ServiceCall[Person, String]
 
+  def updatePersonName(currentName: String): ServiceCall[String, Person]
+
 
   override final def descriptor: Descriptor = {
     import Service._
@@ -38,7 +41,8 @@ trait PersonService extends Service {
     named("goodbyeworld")
       .withCalls(
         restCall(Method.POST, "/api/Nevin/", createPerson _),
-        restCall(Method.GET,"/api/Nevin/:fname", getPerson _)
+        restCall(Method.GET,"/api/Nevin/:fname", getPerson _),
+        restCall(Method.PUT,"/api/Nevin/:fname", updatePersonName _)
       )
       .withAutoAcl(true)
     // @formatter:on

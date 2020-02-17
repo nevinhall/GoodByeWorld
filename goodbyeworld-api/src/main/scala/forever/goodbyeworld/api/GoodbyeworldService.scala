@@ -27,8 +27,8 @@ object Address {
 trait PersonService extends Service {
 
 
-  //def hello(id: String): ServiceCall[NotUsed, Person]
-//  def createPerson(name: String, age: Int, address: String): ServiceCall[NotUsed, String]
+  def getPerson: ServiceCall[String, Person]
+
   def createPerson: ServiceCall[Person, String]
 
 

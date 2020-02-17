@@ -17,24 +17,24 @@ import scala.concurrent.duration._
 import akka.util.Timeout
 import com.lightbend.lagom.scaladsl.api.transport.BadRequest
 
-/**
- * Implementation of the GoodbyeworldService.
- */
+import scala.collection.+:
+
 class GoodbyeworldServiceImpl(
                                clusterSharding: ClusterSharding,
                                persistentEntityRegistry: PersistentEntityRegistry
                              )(implicit ec: ExecutionContext)
   extends PersonService {
 
+var currentPeople: List[Person] = List()
 
-
-//  override def getPerson(id: String): ServiceCall[NotUsed, String] = ServiceCall {
-//   _ =>
-//    Future("GoodbBye world " + id)
-//  }
-
-
-  override def createPerson : ServiceCall[Person, String] = { p =>
-        Future(p.name)
+  override def createPerson: ServiceCall[Person, String] = { p =>
+    addToList(p)
+    Future(p.name)
   }
+
+  def addToList(p:Person): Unit= {
+    currentPeople = currentPeople :+ p
+  }
+
+  override def getPerson: ServiceCall[String, Person] = ???
 }

@@ -24,7 +24,6 @@ class GoodbyeworldServiceImpl(
                                persistentEntityRegistry: PersistentEntityRegistry
                              )(implicit ec: ExecutionContext)
   extends PersonService {
-
   var currentPeople: List[Person] = List()
 
   override def createPerson: ServiceCall[Person, String] = { p =>
@@ -47,12 +46,11 @@ class GoodbyeworldServiceImpl(
     name =>
       val tempPerson: Option[Person] = currentPeople.find(p => p.name == currentName)
       val updatedPerson = Person(name, tempPerson.get.age, tempPerson.get.address)
+      currentPeople = currentPeople.filter(p => p.name != currentName)
       addToList(updatedPerson)
       Future {
-        currentPeople = currentPeople.drop(currentPeople.indexOf(currentPeople.filter(p => p.name == currentName)))
         updatedPerson
       }
-
   }
 
 }

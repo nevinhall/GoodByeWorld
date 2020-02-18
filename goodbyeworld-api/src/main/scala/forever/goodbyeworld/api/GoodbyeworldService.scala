@@ -42,10 +42,10 @@ trait PersonService extends Service {
     // @formatter:off
     named("goodbyeworld")
       .withCalls(
-        restCall(Method.POST, "/api/Nevin/", createPerson _),
+        restCall(Method.POST, "/api/Nevin/", createPerson),
         restCall(Method.GET,"/api/Nevin/:fname", getPerson _),
         restCall(Method.PUT,"/api/Nevin/:fname", updatePersonName _),
-        restCall(Method.DELETE, "/api/Nevin/", deletePerson _)
+        restCall(Method.DELETE, "/api/Nevin/", deletePerson)
 
       )
       .withAutoAcl(true)

@@ -48,9 +48,9 @@ class GoodbyeworldServiceImpl(
       val updatedPerson = Person(name, tempPerson.get.age, tempPerson.get.address)
       currentPeople = currentPeople.filter(p => p.name != currentName)
       addToList(updatedPerson)
-      Future {
-        updatedPerson
-      }
+        Future {
+          updatedPerson
+        }
   }
 
   override def deletePerson: ServiceCall[String, String] = {
